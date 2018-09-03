@@ -50,7 +50,6 @@
 defined('IN_ECJIA') or exit('No permission resources.');
 
 use Ecjia\App\Cron\CronAbstract;
-use RC_Time;
 
 class cron_order_auto_refuse extends CronAbstract
 {
@@ -66,11 +65,7 @@ class cron_order_auto_refuse extends CronAbstract
     				->where('shipping_status', SS_UNSHIPPED)
     				->where('is_delete', 0)
     				->get();
-    	$time = RC_Time::time();
-    	
-    	\RC_Logger::getLogger('error')->info('testxxx');
-    	\RC_Logger::getLogger('error')->info($list);
-    	\RC_Logger::getLogger('error')->info('testyyy');
+    	$time = RC_Time::gmtime();
     	
     	if (!empty($list)) {
     		foreach ($list as $val) {
@@ -78,13 +73,8 @@ class cron_order_auto_refuse extends CronAbstract
     				$orders_auto_confirm =  Ecjia\App\Cart\StoreStatus::StoreOrdersAutoConfirm($val['store_id']);
     				$orders_auto_rejection_time = Ecjia\App\Orders\OrderAutoRefuse::StoreOrdersAutoRejectTime($val['store_id']);
     				
-    				\RC_Logger::getLogger('error')->info('test111');
-    				\RC_Logger::getLogger('error')->info($orders_auto_rejection_time);
-    				\RC_Logger::getLogger('error')->info('test222');
-    				
     				if (($orders_auto_rejection_time > 0) && $orders_auto_confirm == Ecjia\App\Cart\StoreStatus::UNAUTOCONFIRM) {
     					if ($time - $val['pay_time'] >= $orders_auto_rejection_time*60) {
-    						\RC_Logger::getLogger('error')->info('test333');
     						Ecjia\App\Orders\OrderAutoRefuse::AutoRejectOrder($val);
     					}
     				}
