@@ -67,6 +67,10 @@ class cron_order_auto_refuse extends CronAbstract
     				->get();
     	$time = RC_Time::time();
     	
+    	\RC_Logger::getLogger('error')->info('testxxx');
+    	\RC_Logger::getLogger('error')->info($list);
+    	\RC_Logger::getLogger('error')->info('testyyy');
+    	
     	if (!empty($list)) {
     		foreach ($list as $val) {
     			if (!empty($val['store_id'])) {
