@@ -50,6 +50,7 @@
 defined('IN_ECJIA') or exit('No permission resources.');
 
 use Ecjia\App\Cron\CronAbstract;
+use RC_Time;
 
 class cron_order_auto_refuse extends CronAbstract
 {
