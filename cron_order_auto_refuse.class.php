@@ -86,7 +86,17 @@ class cron_order_auto_refuse extends CronAbstract
     								'add_time'		=> RC_Time::gmtime()
     							));
     						} else {
-    							Ecjia\App\Orders\OrderAutoRefuse::AutoRejectOrder($val);
+    							if ($val['pay_status'] == PS_UNPAYED) {
+    								RC_DB::table('order_info')->where('order_id', $val['order_id'])->update(array('order_status' => OS_CANCELED));
+    								RC_DB::table('order_status_log')->insert(array(
+	    								'order_status'	=> RC_Lang::get('orders::order.order_cancel'),
+	    								'order_id'		=> $val['order_id'],
+	    								'message'		=> '订单已取消！',
+	    								'add_time'		=> RC_Time::gmtime()
+	    							));
+    							} elseif ($val['pay_status'] == PS_PAYED) {
+    								Ecjia\App\Orders\OrderAutoRefuse::AutoRejectOrder($val);
+    							}
     						}
     					}
     				}
