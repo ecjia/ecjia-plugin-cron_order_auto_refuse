@@ -72,6 +72,7 @@ class plugin_cron_order_auto_refuse {
 }
 
 Ecjia_PluginManager::extend('cron_order_auto_refuse', function() {
+    RC_Locale::loadPluginTextdomain('cron_order_auto_refuse');
     require_once RC_Plugin::plugin_dir_path(__FILE__) . 'cron_order_auto_refuse.class.php';
     return new cron_order_auto_refuse();
 });
