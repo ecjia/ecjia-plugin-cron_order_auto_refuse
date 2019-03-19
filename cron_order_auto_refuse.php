@@ -49,7 +49,7 @@ Plugin Name: 计划任务-订单自动拒单
 Plugin URI: http://www.ecjia.com/plugins/ecjia.cron_order_auto_refuse/
 Description: 订单自动拒单，设置支付后多长时间后未接单的自动拒单
 Author: ECJIA TEAM
-Version: 1.0.0
+Version: 1.30.0
 Author URI: http://www.ecjia.com/
 Plugin App: cron
 */
